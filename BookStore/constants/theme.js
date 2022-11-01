@@ -7,13 +7,14 @@ export const COLORS = {
     secondary: "#25282F",
 
     // colors
+    red: "#FF0000",
     black: "#1E1B26",
     white: "#FFFFFF",
     lightGray: "#64676D",
     lightGray2: "#EFEFF0",
     lightGray3: '#D4D5D6',
     lightGray4: '#7D7E84',
-    gray: "#2D3038",
+    gray: "#555555",
     gray1: "#282C35",
     darkRed: "#31262F",
     lightRed: "#C5505E",

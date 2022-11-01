@@ -12,8 +12,9 @@ import { icons } from "../../constants";
 const tabOptions = {
   showLabel: false,
   style: {
-    height: "20%",
+    height: "50%",
     backgroundColor: COLORS.black,
+    padding: 24
   },
 };
 
@@ -22,11 +23,10 @@ const Tab = createBottomTabNavigator();
 const TabNavigation = () => {
   return (
     <Tab.Navigator
-      // tabBarOptions={tabOptions}
       screenOptions={({ route }) => ({
-        tabBarStyle: tabOptions,
+        
         tabBarIcon: ({ focused }) => {
-          const tintColor = focused ? white : gray;
+          const tintColor = focused ? COLORS.white : COLORS.gray;
 
           switch (route.name) {
             case "Home":
@@ -82,8 +82,15 @@ const TabNavigation = () => {
               );
           }
         },
-        tabBarActiveTintColor: 'red',
-          tabBarInactiveTintColor: 'gray',
+        // tabBarActiveTintColor: "red",
+        // tabBarInactiveTintColor: "gray",
+        tabBarStyle: {
+          height: "8%",
+          backgroundColor: COLORS.black,
+          padding: 3
+        },
+        headerShown: false,
+        tabBarShowLabel: false,
       })}
     >
       <Tab.Screen name="Home" component={HomeScreen} />

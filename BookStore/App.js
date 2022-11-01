@@ -6,7 +6,7 @@ import RootView from "./view/RootView";
 export default function App() {
   return (
     <RootView>
-
+      
     </RootView>
     
   );
