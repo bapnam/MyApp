@@ -7,13 +7,6 @@
 ********
 === 1. install (lm theo thứ tự) thay đổi ( npx expo install hay npx ins => npm install)
 
-== navigation
-npm install @react-navigation/stack
-npm install react-native-gesture-handler
-npm install @react-navigation/bottom-tabs
-
-== navigation
-
 npm install @react-navigation/native
 npm install --save react-native-gesture-handler             * 1 
 npm install react-native-screens
