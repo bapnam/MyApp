@@ -15,6 +15,7 @@ export const back_arrow_icon = require("../assets/icons/back_arrow_icon.png");
 export const more_icon = require("../assets/icons/more_icon.png");
 export const dollar = require("../assets/icons/dollar.png");
 export const cart_icon = require("../assets/icons/shopping-cart.png");
+export const dong_icon = require("../assets/icons/dong.png");
 
 export default {
   card_icon,
@@ -34,4 +35,5 @@ export default {
   more_icon,
   dollar,
   cart_icon,
+  dong_icon,
 };

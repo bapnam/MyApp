@@ -59,7 +59,7 @@ const BookDetail = ({ route, navigation }) => {
             right: 0,
             bottom: 0,
             left: 0,
-            backgroundColor: "rgba(240,240,232,0.8)",
+            backgroundColor: "rgba(240,240,232,0.9)",
           }}
         ></View>
 
@@ -131,61 +131,16 @@ const BookDetail = ({ route, navigation }) => {
         <View
           style={{ flex: 1.8, alignItems: "center", justifyContent: "center" }}
         >
-          <Text style={{ ...FONTS.h2, color: book.navTintColor }}>
-            {book.bookName}
+          <Text
+            style={{ ...FONTS.h2, color: book.navTintColor }}
+            numberOfLines={1}
+            ellipsizeMode="tail"
+          >
+            {book.TenSanPham}
           </Text>
           <Text style={{ ...FONTS.body3, color: book.navTintColor }}>
-            {book.author}
+            {book.TacGia}
           </Text>
-        </View>
-
-        {/* Book Info */}
-        <View
-          style={{
-            flexDirection: "row",
-            paddingVertical: 20,
-            margin: SIZES.padding,
-            borderRadius: SIZES.radius,
-            backgroundColor: "rgba(0,0,0,0.3)",
-          }}
-        >
-          {/* Rating */}
-          <View style={{ flex: 1, alignItems: "center" }}>
-            <Text style={{ ...FONTS.h3, color: COLORS.white }}>
-              {book.rating}
-            </Text>
-            <Text style={{ ...FONTS.body4, color: COLORS.white }}>Rating</Text>
-          </View>
-
-          <LineDivider />
-
-          {/* Pages */}
-          <View
-            style={{
-              flex: 1,
-              paddingHorizontal: SIZES.radius,
-              alignItems: "center",
-            }}
-          >
-            <Text style={{ ...FONTS.h3, color: COLORS.white }}>
-              {book.pageNo}
-            </Text>
-            <Text style={{ ...FONTS.body4, color: COLORS.white }}>
-              Number of Page
-            </Text>
-          </View>
-
-          <LineDivider />
-
-          {/* Language */}
-          <View style={{ flex: 1, alignItems: "center" }}>
-            <Text style={{ ...FONTS.h3, color: COLORS.white }}>
-              {book.language}
-            </Text>
-            <Text style={{ ...FONTS.body4, color: COLORS.white }}>
-              Language
-            </Text>
-          </View>
         </View>
       </View>
     );
@@ -257,10 +212,10 @@ const BookDetail = ({ route, navigation }) => {
               marginBottom: SIZES.padding,
             }}
           >
-            Description
+            Mô tả
           </Text>
           <Text style={{ ...FONTS.body2, color: COLORS.lightGray }}>
-            {book.description}
+            {book.MoTa}
           </Text>
         </ScrollView>
       </View>
@@ -270,30 +225,6 @@ const BookDetail = ({ route, navigation }) => {
   const renderBottomButton = () => {
     return (
       <View style={{ flex: 1, flexDirection: "row" }}>
-        {/* Bookmark */}
-        {/* <TouchableOpacity
-          style={{
-            width: 60,
-            backgroundColor: COLORS.secondary,
-            marginLeft: SIZES.padding,
-            marginVertical: SIZES.base,
-            borderRadius: SIZES.radius,
-            alignItems: "center",
-            justifyContent: "center",
-          }}
-          onPress={() => console.log("Bookmark")}
-        >
-          <Image
-            source={icons.bookmark_icon}
-            resizeMode="contain"
-            style={{
-              width: 25,
-              height: 25,
-              tintColor: COLORS.lightGray2,
-            }}
-          />
-        </TouchableOpacity> */}
-
         {/* Start Reading */}
         <TouchableOpacity
           style={{
@@ -305,7 +236,9 @@ const BookDetail = ({ route, navigation }) => {
             alignItems: "center",
             justifyContent: "center",
           }}
-          onPress={() => console.log("Start Reading")}
+          onPress={() =>
+            navigation.navigate("CartScreen")
+          }
         >
           <Text style={{ ...FONTS.h3, color: COLORS.white }}>
             Start Reading
@@ -319,7 +252,7 @@ const BookDetail = ({ route, navigation }) => {
     return (
       <View style={{ flex: 1, backgroundColor: COLORS.black }}>
         {/* Book Cover Section */}
-        <View style={{ flex: 4 }}>{renderBookInfoSection()}</View>
+        <View style={{ flex: 3 }}>{renderBookInfoSection()}</View>
 
         {/* Description */}
         <View style={{ flex: 2 }}>{renderBookDescription()}</View>
