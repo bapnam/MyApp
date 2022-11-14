@@ -24,6 +24,7 @@ npm install --save @react-native-masked-view/masked-view    * có phiên bản �
 npm install react-native-reanimated                         * nên cài cuối cùng - chú ý k cài gấp khi nào cần thì cài
 
 npm install axios
+npm install @react-native-async-storage/async-storage
 
 
 + Một số phiên bản không phù hợp: câu lệnh mẫu để thay đổi.

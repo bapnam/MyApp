@@ -151,11 +151,14 @@ const HomeScreen = ({ navigation }) => {
           });
 
           setSach(valueBooks);
+
+          // LOG
           const d = new Date();
           console.log(
             "\n==>Line 138 TIME==> " + d.toLocaleTimeString() + ": ",
             valueBooks
           );
+          // LOG
 
           // setArrSach(sach)
           // console.log("SACH: ", arrSach[0].NXB.TenNXB);
@@ -567,7 +570,9 @@ const HomeScreen = ({ navigation }) => {
                 </Text>
               </View>
               {/* Buttons */}
-              <View style={{ height: "40%" }}>{renderButtonAddGioHang(item)}</View>
+              <View style={{ height: "40%" }}>
+                {renderButtonAddGioHang(item)}
+              </View>
             </View>
           </TouchableOpacity>
         </View>
@@ -607,12 +612,14 @@ const HomeScreen = ({ navigation }) => {
             justifyContent: "center",
           }}
           onPress={() =>
-            navigation.navigate("BookDetail", {
+            navigation.navigate("CartScreen", {
               book: item,
             })
           }
         >
-          <Text style={{ ...FONTS.h4, color: COLORS.white }}>Thêm vào Giỏ hàng</Text>
+          <Text style={{ ...FONTS.h4, color: COLORS.white }}>
+            Thêm vào Giỏ hàng
+          </Text>
         </TouchableOpacity>
       </View>
     );

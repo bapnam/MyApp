@@ -31,7 +31,7 @@ function MyStack() {
       <Stack.Screen name="BookStore" component={TabNavigation} />
       {/* Screens */}
       <Stack.Screen name="BookDetail" component={BookDetail} options={{ headerShown: false }} />
-      <Stack.Screen name="CartScreen" component={CartScreen} options={{ headerShown: false }} />
+      <Stack.Screen name="CartScreen" component={CartScreen} />
     </Stack.Navigator>
   );
 }

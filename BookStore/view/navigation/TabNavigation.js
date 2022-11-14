@@ -95,7 +95,7 @@ const TabNavigation = () => {
     >
       <Tab.Screen name="Home" component={HomeScreen} />
       <Tab.Screen name="Search" component={SearchScreen} />
-      <Tab.Screen name="Cart" component={CartScreen} />
+      <Tab.Screen name="Cart" component={CartScreen} options={{ tabBarBadge: 3 }} />
       <Tab.Screen name="Setting" component={SettingScreen} />
     </Tab.Navigator>
   );
