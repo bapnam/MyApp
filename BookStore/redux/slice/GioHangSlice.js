@@ -17,14 +17,16 @@ export const gioHangSlice = createSlice({
   },
 
   reducers: {
-    updateGioHangs: (state, action) => {
+    createGioHangs: (state, action) => {
       state.KhachHangID = action.payload.KhachHangID;
       state.SanPham = action.payload.SanPham;
+    },
+    updateGioHangs: (state, action) => {
+      state.KhachHangID = action.payload.KhachHangID;
+      state.SanPham = [...state.SanPham, action.payload.SanPham];
     },
   },
 });
 
-console.log(11111111111111);
-
-export const { updateGioHangs } = gioHangSlice.actions;
+export const { updateGioHangs, createGioHangs } = gioHangSlice.actions;
 export default gioHangSlice.reducer;
