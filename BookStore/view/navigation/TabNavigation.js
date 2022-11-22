@@ -8,6 +8,7 @@ import SettingScreen from "../screen/SettingScreen";
 import { COLORS } from "../../constants";
 import { icons } from "../../constants";
 import CartScreen from "../screen/CartScreen";
+import LoginScreen from "../screen/login_logout/login";
 
 const tabOptions = {
   showLabel: false,
@@ -96,7 +97,7 @@ const TabNavigation = () => {
       <Tab.Screen name="Home" component={HomeScreen} />
       <Tab.Screen name="Search" component={SearchScreen} />
       <Tab.Screen name="Cart" component={CartScreen} options={{ tabBarBadge: 3 }} />
-      <Tab.Screen name="Setting" component={SettingScreen} />
+      <Tab.Screen name="Setting" component={LoginScreen} />
     </Tab.Navigator>
   );
 };

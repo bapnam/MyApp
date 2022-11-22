@@ -9,14 +9,10 @@ import {
   StatusBar,
   Dimensions,
 } from "react-native";
+import { useDispatch, useSelector } from "react-redux";
 
 import { COLORS, FONTS, SIZES, icons, images } from "../../constants";
 import requestAxios from "../utils/requestAxios";
-// import renderButtonSection from "./homeComponent/renderButtonSection";
-// import renderCategoryData from "./homeComponent/renderCategoryData";
-// import renderCategoryHeader from "./homeComponent/renderCategoryHeader";
-// import renderHeader from "./homeComponent/renderHeader";
-// import renderMyBookSection from "./homeComponent/renderMyBookSection";
 
 const windowWidth = Dimensions.get("window").width;
 const windowHeight = Dimensions.get("window").height;
@@ -36,6 +32,62 @@ const LineDivider = () => {
 };
 
 const HomeScreen = ({ navigation }) => {
+  //*************** */
+  const [sach, setSach] = useState();
+  const [arrSach, setArrSach] = useState([]);
+
+  const gioHang = useSelector((state) => state.gioHang)
+
+  useEffect(() => {
+    const getAll = async () => {
+      await requestAxios
+        .get("/sanpham/getall")
+        .then((res) => {
+          const valueBooks = res.data.map((item) => {
+            return {
+              _id: item._id,
+              TenSanPham: item.TenSanPham,
+              NXB: item.NXB.TenNXB,
+              TacGia: item.TacGia.map((i) => {
+                return i.TenTacGia;
+              }),
+              SoLuong: item.SoLuong,
+              LoaiSach: item.LoaiSach.map((i) => {
+                return i.TenLoaiSach;
+              }),
+              Gia: item.Gia,
+              HinhAnh: item.HinhAnh,
+              MoTa: item.MoTa,
+            };
+          });
+
+          setSach(valueBooks);
+
+          // LOG
+          const d = new Date();
+          // console.log(
+          //   "\n==>NLOG-1 TIME==> " + d.toLocaleTimeString() + ": ",
+          //   valueBooks
+          // );
+          // console.log("\n==>NLOG-Home TIME==> " + d.toLocaleTimeString() + ": ", ress);
+          // LOG
+
+          // setArrSach(sach)
+          // console.log("SACH: ", arrSach[0].NXB.TenNXB);
+        })
+        .catch((err) => {
+          console.log("LOI: ", err);
+        });
+    };
+
+    getAll();
+    console.log("GIOHANG: home: ", gioHang);
+    
+  }, []);
+
+  //********************* */
+  //-------------------------------
+
   const profileData = {
     name: "Username",
     point: 200,
@@ -122,55 +174,6 @@ const HomeScreen = ({ navigation }) => {
   const [myBooks, setMyBooks] = useState(sach);
   const [categories, setCategories] = useState(categoriesData);
   const [selectedCategory, setSelectedCategory] = useState(1);
-
-  //*************** */
-  const [sach, setSach] = useState();
-  const [arrSach, setArrSach] = useState([]);
-
-  useEffect(() => {
-    const getAll = async () => {
-      await requestAxios
-        .get("/sanpham/getall")
-        .then((res) => {
-          const valueBooks = res.data.map((item) => {
-            return {
-              _id: item._id,
-              TenSanPham: item.TenSanPham,
-              NXB: item.NXB.TenNXB,
-              TacGia: item.TacGia.map((i) => {
-                return i.TenTacGia;
-              }),
-              SoLuong: item.SoLuong,
-              LoaiSach: item.LoaiSach.map((i) => {
-                return i.TenLoaiSach;
-              }),
-              Gia: item.Gia,
-              HinhAnh: item.HinhAnh,
-              MoTa: item.MoTa,
-            };
-          });
-
-          setSach(valueBooks);
-
-          // LOG
-          const d = new Date();
-          console.log(
-            "\n==>Line 138 TIME==> " + d.toLocaleTimeString() + ": ",
-            valueBooks
-          );
-          // LOG
-
-          // setArrSach(sach)
-          // console.log("SACH: ", arrSach[0].NXB.TenNXB);
-        })
-        .catch((err) => {
-          console.log("LOI: ", err);
-        });
-    };
-    getAll();
-  }, []);
-
-  //********************* */
 
   const renderButtonSection = () => {
     return (

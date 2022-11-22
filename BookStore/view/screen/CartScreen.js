@@ -8,17 +8,24 @@ import {
   ScrollView,
   Animated,
 } from "react-native";
+import { useSelector } from "react-redux";
 import { FONTS, COLORS, SIZES, icons } from "../../constants";
+
+// const gioHang = useSelector((state) => {
+//   state.gioHang.khachHangID;
+// });
 
 const CartScreen = ({ route, navigation }) => {
   const [book, setBook] = useState(null);
   const [scrollViewWholeHeight, setScrollViewWholeHeight] = useState(1);
   const [scrollViewVisibleHeight, setScrollViewVisibleHeight] = useState(0);
 
-  // useEffect(() => {
-  //   // let { book } = route.params;
-  //   // setBook(book); book
-  // }, []);
+  const gioHang = useSelector((state) => state.gioHang);
+
+  useEffect(() => {
+    // updateGioHang("id", dispatch)
+    console.log("GIO: ", gioHang);
+  }, []);
 
   const renderHeaderCart = () => {
     return (
@@ -74,541 +81,119 @@ const CartScreen = ({ route, navigation }) => {
   };
 
   const renderBookDescription = () => {
-    // const indicatorSize =
-    //   scrollViewWholeHeight > scrollViewVisibleHeight
-    //     ? (scrollViewVisibleHeight * scrollViewVisibleHeight) /
-    //       scrollViewWholeHeight
-    //     : scrollViewVisibleHeight;
-
-    // const difference =
-    //   scrollViewVisibleHeight > indicatorSize
-    //     ? scrollViewVisibleHeight - indicatorSize
-    //     : 1;
-
-    return (
-      <View style={{ flex: 1, flexDirection: "row", padding: SIZES.padding }}>
+    return gioHang.SanPham.length > 0 ? (
+      <View
+        style={{
+          flex: 1,
+          flexDirection: "row",
+          paddingLeft: SIZES.padding,
+        }}
+      >
         <ScrollView>
-          <View style={{ marginVertical: SIZES.base, height: 150 }}>
-            <TouchableOpacity
-              style={{ flex: 1, flexDirection: "row" }}
-              // onPress={() =>
-              //   navigation.navigate("BookDetail", {
-              //     book: item,
-              //   })
-              // }
-            >
-              {/* Book Cover */}
-              <Image
-                source={23}
-                resizeMode="cover"
-                style={{ width: "25%", height: "auto", borderRadius: 10 }}
-              />
-
-              <View style={{ flex: 1, marginLeft: SIZES.radius, width: "10%" }}>
-                {/* Book name */}
-                <View style={{ width: "100%", marginLeft: SIZES.base }}>
-                  <Text
-                    style={{
-                      paddingRight: SIZES.padding,
-                      ...FONTS.h2,
-                      color: COLORS.white,
-                      flex: 1,
-                      ellipsizeMode: "tail",
-                      numberOfLines: 1,
-                      width: "100%",
-                    }}
-                    numberOfLines={1}
-                    ellipsizeMode="tail"
-                  >
-                    Tên SP
-                  </Text>
-                </View>
-
-                {/* Book Info */}
-                <View
-                  style={{
-                    flexDirection: "row",
-                    marginTop: SIZES.radius,
-                    marginLeft: SIZES.base,
+          {gioHang.SanPham.map((items) => (
+            <View style={{ marginVertical: SIZES.base }}>
+              <TouchableOpacity style={{ flex: 1, flexDirection: "row" }}>
+                {/* Book Cover */}
+                <Image
+                  source={{
+                    uri: "http://10.10.43.8:9000/publics/images/HinhAnh-1668677136887.jpg",
                   }}
-                >
-                  <Image
-                    source={icons.dong_icon}
-                    resizeMode="contain"
-                    style={{
-                      width: 20,
-                      height: 20,
-                      tintColor: COLORS.lightGray,
-                    }}
-                  />
-                  <Text
-                    style={{
-                      ...FONTS.body3,
-                      color: COLORS.lightGray,
-                      paddingHorizontal: SIZES.radius,
-                    }}
-                  >
-                    500
-                  </Text>
-                </View>
-              </View>
-            </TouchableOpacity>
-          </View>
+                  resizeMode="cover"
+                  style={{ width: "20%", height: 150, borderRadius: 10 }}
+                />
 
-          <View style={{ marginVertical: SIZES.base }}>
-            <TouchableOpacity
-              style={{ flex: 1, flexDirection: "row" }}
-              // onPress={() =>
-              //   navigation.navigate("BookDetail", {
-              //     book: item,
-              //   })
-              // }
-            >
-              {/* Book Cover */}
-              <Image
-                source={21}
-                resizeMode="cover"
-                style={{ width: "20%", height: 150, borderRadius: 10 }}
-              />
-
-              <View style={{ flex: 1, marginLeft: SIZES.radius, width: "10%" }}>
-                {/* Book name */}
-                <View style={{ width: "100%", marginLeft: SIZES.base }}>
-                  <Text
-                    style={{
-                      paddingRight: SIZES.padding,
-                      ...FONTS.h2,
-                      color: COLORS.white,
-                      flex: 1,
-                      ellipsizeMode: "tail",
-                      numberOfLines: 1,
-                      width: "100%",
-                    }}
-                    numberOfLines={1}
-                    ellipsizeMode="tail"
-                  >
-                    Tên SP
-                  </Text>
-                </View>
-
-                {/* Book Info */}
                 <View
-                  style={{
-                    flexDirection: "row",
-                    marginTop: SIZES.radius,
-                    marginLeft: SIZES.base,
-                  }}
+                  style={{ flex: 1, marginLeft: SIZES.radius, width: "10%" }}
                 >
-                  <Image
-                    source={icons.dong_icon}
-                    resizeMode="contain"
+                  {/* Book name */}
+                  <View style={{ width: "100%", marginLeft: SIZES.base }}>
+                    <Text
+                      style={{
+                        paddingRight: SIZES.padding,
+                        ...FONTS.h2,
+                        color: COLORS.white,
+                        flex: 1,
+
+                        width: "100%",
+                      }}
+                    >
+                      {items.TenSanPham}
+                    </Text>
+                  </View>
+
+                  {/* Book Info */}
+                  <View
                     style={{
-                      width: 20,
-                      height: 20,
-                      tintColor: COLORS.lightGray,
-                    }}
-                  />
-                  <Text
-                    style={{
-                      ...FONTS.body3,
-                      color: COLORS.lightGray,
-                      paddingHorizontal: SIZES.radius,
+                      flexDirection: "row",
+                      marginTop: SIZES.radius,
+                      marginLeft: SIZES.base,
                     }}
                   >
-                    500
-                  </Text>
+                    <Image
+                      source={icons.dong_icon}
+                      resizeMode="contain"
+                      style={{
+                        width: 20,
+                        height: 20,
+                        tintColor: COLORS.lightGray,
+                      }}
+                    />
+                    <Text
+                      style={{
+                        ...FONTS.body3,
+                        color: COLORS.lightGray,
+                        paddingHorizontal: SIZES.radius,
+                      }}
+                    >{items.Gia}</Text>
+                  </View>
                 </View>
-              </View>
-            </TouchableOpacity>
-          </View>
-
-          <View style={{ marginVertical: SIZES.base }}>
-            <TouchableOpacity
-              style={{ flex: 1, flexDirection: "row" }}
-              // onPress={() =>
-              //   navigation.navigate("BookDetail", {
-              //     book: item,
-              //   })
-              // }
-            >
-              {/* Book Cover */}
-              <Image
-                source={21}
-                resizeMode="cover"
-                style={{ width: "20%", height: 150, borderRadius: 10 }}
-              />
-
-              <View style={{ flex: 1, marginLeft: SIZES.radius, width: "10%" }}>
-                {/* Book name */}
-                <View style={{ width: "100%", marginLeft: SIZES.base }}>
-                  <Text
-                    style={{
-                      paddingRight: SIZES.padding,
-                      ...FONTS.h2,
-                      color: COLORS.white,
-                      flex: 1,
-                      ellipsizeMode: "tail",
-                      numberOfLines: 1,
-                      width: "100%",
-                    }}
-                    numberOfLines={1}
-                    ellipsizeMode="tail"
-                  >
-                    Tên SP
-                  </Text>
-                </View>
-
-                {/* Book Info */}
-                <View
-                  style={{
-                    flexDirection: "row",
-                    marginTop: SIZES.radius,
-                    marginLeft: SIZES.base,
-                  }}
-                >
-                  <Image
-                    source={icons.dong_icon}
-                    resizeMode="contain"
-                    style={{
-                      width: 20,
-                      height: 20,
-                      tintColor: COLORS.lightGray,
-                    }}
-                  />
-                  <Text
-                    style={{
-                      ...FONTS.body3,
-                      color: COLORS.lightGray,
-                      paddingHorizontal: SIZES.radius,
-                    }}
-                  >
-                    500
-                  </Text>
-                </View>
-              </View>
-            </TouchableOpacity>
-          </View>
-
-          <View style={{ marginVertical: SIZES.base }}>
-            <TouchableOpacity
-              style={{ flex: 1, flexDirection: "row" }}
-              // onPress={() =>
-              //   navigation.navigate("BookDetail", {
-              //     book: item,
-              //   })
-              // }
-            >
-              {/* Book Cover */}
-              <Image
-                source={21}
-                resizeMode="cover"
-                style={{ width: "20%", height: 150, borderRadius: 10 }}
-              />
-
-              <View style={{ flex: 1, marginLeft: SIZES.radius, width: "10%" }}>
-                {/* Book name */}
-                <View style={{ width: "100%", marginLeft: SIZES.base }}>
-                  <Text
-                    style={{
-                      paddingRight: SIZES.padding,
-                      ...FONTS.h2,
-                      color: COLORS.white,
-                      flex: 1,
-                      ellipsizeMode: "tail",
-                      numberOfLines: 1,
-                      width: "100%",
-                    }}
-                    numberOfLines={1}
-                    ellipsizeMode="tail"
-                  >
-                    Tên SP
-                  </Text>
-                </View>
-
-                {/* Book Info */}
-                <View
-                  style={{
-                    flexDirection: "row",
-                    marginTop: SIZES.radius,
-                    marginLeft: SIZES.base,
-                  }}
-                >
-                  <Image
-                    source={icons.dong_icon}
-                    resizeMode="contain"
-                    style={{
-                      width: 20,
-                      height: 20,
-                      tintColor: COLORS.lightGray,
-                    }}
-                  />
-                  <Text
-                    style={{
-                      ...FONTS.body3,
-                      color: COLORS.lightGray,
-                      paddingHorizontal: SIZES.radius,
-                    }}
-                  >
-                    500
-                  </Text>
-                </View>
-              </View>
-            </TouchableOpacity>
-          </View>
-
-          <View style={{ marginVertical: SIZES.base }}>
-            <TouchableOpacity
-              style={{ flex: 1, flexDirection: "row" }}
-              // onPress={() =>
-              //   navigation.navigate("BookDetail", {
-              //     book: item,
-              //   })
-              // }
-            >
-              {/* Book Cover */}
-              <Image
-                source={21}
-                resizeMode="cover"
-                style={{ width: "20%", height: 150, borderRadius: 10 }}
-              />
-
-              <View style={{ flex: 1, marginLeft: SIZES.radius, width: "10%" }}>
-                {/* Book name */}
-                <View style={{ width: "100%", marginLeft: SIZES.base }}>
-                  <Text
-                    style={{
-                      paddingRight: SIZES.padding,
-                      ...FONTS.h2,
-                      color: COLORS.white,
-                      flex: 1,
-                      ellipsizeMode: "tail",
-                      numberOfLines: 1,
-                      width: "100%",
-                    }}
-                    numberOfLines={1}
-                    ellipsizeMode="tail"
-                  >
-                    Tên SP
-                  </Text>
-                </View>
-
-                {/* Book Info */}
-                <View
-                  style={{
-                    flexDirection: "row",
-                    marginTop: SIZES.radius,
-                    marginLeft: SIZES.base,
-                  }}
-                >
-                  <Image
-                    source={icons.dong_icon}
-                    resizeMode="contain"
-                    style={{
-                      width: 20,
-                      height: 20,
-                      tintColor: COLORS.lightGray,
-                    }}
-                  />
-                  <Text
-                    style={{
-                      ...FONTS.body3,
-                      color: COLORS.lightGray,
-                      paddingHorizontal: SIZES.radius,
-                    }}
-                  >
-                    500
-                  </Text>
-                </View>
-              </View>
-            </TouchableOpacity>
-          </View>
-
-          <View style={{ marginVertical: SIZES.base }}>
-            <TouchableOpacity
-              style={{ flex: 1, flexDirection: "row" }}
-              // onPress={() =>
-              //   navigation.navigate("BookDetail", {
-              //     book: item,
-              //   })
-              // }
-            >
-              {/* Book Cover */}
-              <Image
-                source={21}
-                resizeMode="cover"
-                style={{ width: "20%", height: 150, borderRadius: 10 }}
-              />
-
-              <View style={{ flex: 1, marginLeft: SIZES.radius, width: "10%" }}>
-                {/* Book name */}
-                <View style={{ width: "100%", marginLeft: SIZES.base }}>
-                  <Text
-                    style={{
-                      paddingRight: SIZES.padding,
-                      ...FONTS.h2,
-                      color: COLORS.white,
-                      flex: 1,
-                      ellipsizeMode: "tail",
-                      numberOfLines: 1,
-                      width: "100%",
-                    }}
-                    numberOfLines={1}
-                    ellipsizeMode="tail"
-                  >
-                    Tên SP
-                  </Text>
-                </View>
-
-                {/* Book Info */}
-                <View
-                  style={{
-                    flexDirection: "row",
-                    marginTop: SIZES.radius,
-                    marginLeft: SIZES.base,
-                  }}
-                >
-                  <Image
-                    source={icons.dong_icon}
-                    resizeMode="contain"
-                    style={{
-                      width: 20,
-                      height: 20,
-                      tintColor: COLORS.lightGray,
-                    }}
-                  />
-                  <Text
-                    style={{
-                      ...FONTS.body3,
-                      color: COLORS.lightGray,
-                      paddingHorizontal: SIZES.radius,
-                    }}
-                  >
-                    500
-                  </Text>
-                </View>
-              </View>
-            </TouchableOpacity>
-          </View>
+              </TouchableOpacity>
+            </View>
+          ))}
         </ScrollView>
       </View>
+    ) : (
+      <></>
     );
   };
 
-  // const renderCategoryData = () => {
-  //   var books = [];
-
-  //   let selectedCategoryBooks = categories.filter(
-  //     (a) => a.id == selectedCategory
-  //   );
-
-  //   if (selectedCategoryBooks.length > 0) {
-  //     books = selectedCategoryBooks[0].books;
-  //   }
-
-  //   const renderItem = ({ item }) => {
-  //     return (
-  //       <View style={{ marginVertical: SIZES.base }}>
-  //         <TouchableOpacity
-  //           style={{ flex: 1, flexDirection: "row" }}
-  //           onPress={() =>
-  //             navigation.navigate("BookDetail", {
-  //               book: item,
-  //             })
-  //           }
-  //         >
-  //           {/* Book Cover */}
-  //           <Image
-  //             source={item.HinhAnh}
-  //             resizeMode="cover"
-  //             style={{ width: 100, height: 150, borderRadius: 10 }}
-  //           />
-
-  //           <View style={{ flex: 1, marginLeft: SIZES.radius, width: "10%" }}>
-  //             {/* Book name and author */}
-  //             <View style={{ width: "100%", marginLeft: SIZES.base }}>
-  //               <Text
-  //                 style={{
-  //                   paddingRight: SIZES.padding,
-  //                   ...FONTS.h2,
-  //                   color: COLORS.white,
-  //                   flex: 1,
-  //                   ellipsizeMode: "tail",
-  //                   numberOfLines: 1,
-  //                   width: "100%",
-  //                 }}
-  //                 numberOfLines={1}
-  //                 ellipsizeMode="tail"
-  //               >
-  //                 {item.TenSanPham}
-  //               </Text>
-  //               <Text style={{ ...FONTS.h3, color: COLORS.lightGray }}>
-  //                 {item.TacGia}
-  //               </Text>
-  //             </View>
-
-  //             {/* Book Info */}
-  //             <View
-  //               style={{
-  //                 flexDirection: "row",
-  //                 marginTop: SIZES.radius,
-  //                 marginLeft: SIZES.base,
-  //               }}
-  //             >
-  //               <Image
-  //                 source={icons.dong_icon}
-  //                 resizeMode="contain"
-  //                 style={{
-  //                   width: 20,
-  //                   height: 20,
-  //                   tintColor: COLORS.lightGray,
-  //                 }}
-  //               />
-  //               <Text
-  //                 style={{
-  //                   ...FONTS.body3,
-  //                   color: COLORS.lightGray,
-  //                   paddingHorizontal: SIZES.radius,
-  //                 }}
-  //               >
-  //                 {item.Gia}
-  //               </Text>
-  //             </View>
-  //             {/* Buttons */}
-  //             <View style={{ height: "40%" }}>
-  //               {renderButtonAddGioHang(item)}
-  //             </View>
-  //           </View>
-  //         </TouchableOpacity>
-  //       </View>
-  //     );
-  //   };
-
-  //   return (
-  //     <View
-  //       style={{
-  //         width: windowWidth,
-  //         marginTop: SIZES.radius,
-  //         paddingLeft: SIZES.padding,
-  //       }}
-  //     >
-  //       <FlatList
-  //         data={sach}
-  //         renderItem={renderItem}
-  //         keyExtractor={(item) => `${item._id}`}
-  //         showsVerticalScrollIndicator={false}
-  //       />
-  //     </View>
-  //   );
-  // };
-
   const renderBottomButton = () => {
     return (
-      <View style={{ flex: 1, flexDirection: "column", padding: SIZES.radius }}>
-        <Text style={{ ...FONTS.h3, color: COLORS.white, height: "50%" }}>
+      <View
+        style={{
+          flex: 1,
+          flexDirection: "column",
+          padding: SIZES.radius,
+          // borderTopColor: COLORS.lightBlue,
+          // borderTopWidth: 2,
+          elevation: 3,
+        }}
+      >
+        <Text style={{ ...FONTS.h3, color: COLORS.white, height: "30%" }}>
           Start Reading
         </Text>
-        <View style={{ flex: 1, flexDirection: "row" }}>
-          <Text style={{ ...FONTS.h3, color: COLORS.white, width: "60%" }}>hahahahah</Text>
+        <View
+          style={{
+            flex: 1,
+            flexDirection: "row",
+            height: "70%",
+            // borderTopColor: COLORS.lightBlue,
+            // borderTopWidth: 2,
+            elevation: 4,
+          }}
+        >
+          <Text
+            style={{
+              ...FONTS.h4,
+              color: COLORS.white,
+              marginHorizontal: SIZES.base,
+              marginVertical: SIZES.base,
+              width: "55%",
+              textAlignVertical: "center",
+            }}
+          >
+            Tổng thanh toán:{" "}
+          </Text>
           <TouchableOpacity
             alignItems="flex-end"
             style={{
@@ -638,10 +223,10 @@ const CartScreen = ({ route, navigation }) => {
       <View style={{ height: "7%" }}>{renderHeaderCart()}</View>
 
       {/* Description */}
-      <View style={{ height: "70%" }}>{renderBookDescription()}</View>
+      <View style={{ height: "78%" }}>{renderBookDescription()}</View>
 
       {/* Buttons */}
-      <View style={{ height: "23%", flexDirection: "column" }}>
+      <View style={{ height: "15%", flexDirection: "column" }}>
         {renderBottomButton()}
       </View>
     </View>
