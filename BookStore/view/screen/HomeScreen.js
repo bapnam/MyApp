@@ -8,11 +8,14 @@ import {
   FlatList,
   StatusBar,
   Dimensions,
+  Alert,
 } from "react-native";
 import { useDispatch, useSelector } from "react-redux";
 
 import { COLORS, FONTS, SIZES, icons, images } from "../../constants";
+import { updateGioHang } from "../../redux/apiRequest";
 import requestAxios from "../utils/requestAxios";
+import { URL_IMAGES } from "../utils/url";
 
 const windowWidth = Dimensions.get("window").width;
 const windowHeight = Dimensions.get("window").height;
@@ -33,10 +36,11 @@ const LineDivider = () => {
 
 const HomeScreen = ({ navigation }) => {
   //*************** */
-  const [sach, setSach] = useState();
+  const dispatch = useDispatch();
+  const [sach, setSach] = useState([]);
   const [arrSach, setArrSach] = useState([]);
 
-  const gioHang = useSelector((state) => state.gioHang)
+  const gioHang = useSelector((state) => state.gioHang);
 
   useEffect(() => {
     const getAll = async () => {
@@ -49,11 +53,11 @@ const HomeScreen = ({ navigation }) => {
               TenSanPham: item.TenSanPham,
               NXB: item.NXB.TenNXB,
               TacGia: item.TacGia.map((i) => {
-                return i.TenTacGia;
+                return { id: i._id, TenTacGia: i.TenTacGia };
               }),
               SoLuong: item.SoLuong,
               LoaiSach: item.LoaiSach.map((i) => {
-                return i.TenLoaiSach;
+                return { id: i._id, Ten: i.TenLoaiSach };
               }),
               Gia: item.Gia,
               HinhAnh: item.HinhAnh,
@@ -61,19 +65,16 @@ const HomeScreen = ({ navigation }) => {
             };
           });
 
+          const vBooks = res.data;
+
           setSach(valueBooks);
 
           // LOG
-          const d = new Date();
-          // console.log(
-          //   "\n==>NLOG-1 TIME==> " + d.toLocaleTimeString() + ": ",
-          //   valueBooks
-          // );
-          // console.log("\n==>NLOG-Home TIME==> " + d.toLocaleTimeString() + ": ", ress);
+          console.log(
+            "\n>NLOG-1 T: " + new Date().toLocaleTimeString() + " >: ",
+            vBooks
+          );
           // LOG
-
-          // setArrSach(sach)
-          // console.log("SACH: ", arrSach[0].NXB.TenNXB);
         })
         .catch((err) => {
           console.log("LOI: ", err);
@@ -81,8 +82,12 @@ const HomeScreen = ({ navigation }) => {
     };
 
     getAll();
-    console.log("GIOHANG: home: ", gioHang);
-    
+    // LOG
+    console.log(
+      "\n>NLOG-1-GIOHANG: home: : " + new Date().toLocaleTimeString() + " >: ",
+      gioHang
+    );
+    // LOG
   }, []);
 
   //********************* */
@@ -92,63 +97,6 @@ const HomeScreen = ({ navigation }) => {
     name: "Username",
     point: 200,
   };
-
-  // const bookOtherWordsForHome = {
-  //   _id: "as",
-  //   TenSanPham: "Song",
-  //   NXB: {
-  //     TenNXB: "Thanh Nien",
-  //   },
-  //   TacGia: "Nguyễn Thị Xuân Quỳnh",
-  //   SoLuong: 10,
-  //   LoaiSach: ["635a404755117fc9e626ed32"],
-  //   Gia: 200000,
-  //   HinhAnh: "21",
-  //   MoTa: "Tac gia: Xuan Quynh",
-  //   navTintColor: "#000",
-  // };
-
-  // const bookTheMetropolis = {
-  //   _id: "123",
-  //   TenSanPham: "Song",
-  //   NXB: {
-  //     TenNXB: "Thanh Nien",
-  //   },
-  //   TacGia: "Nguyễn Thị Xuân Quỳnh",
-  //   SoLuong: 10,
-  //   LoaiSach: ["635a404755117fc9e626ed32"],
-  //   Gia: 200000,
-  //   HinhAnh: "19",
-  //   MoTa: "Tac gia: Xuan Quynh",
-  //   navTintColor: "#000",
-  // };
-
-  // const bookTheTinyDragon = {
-  //   _id: "56",
-  //   TenSanPham: "Song",
-  //   NXB: {
-  //     TenNXB: "Thanh Nien",
-  //   },
-  //   TacGia: "Nguyễn Thị Xuân Quỳnh",
-  //   SoLuong: 10,
-  //   LoaiSach: ["635a404755117fc9e626ed32"],
-  //   Gia: 200000,
-  //   HinhAnh: "20",
-  //   MoTa: "Tac gia: Xuan Quynh",
-  //   navTintColor: "#000",
-  // };
-
-  // const myBooksData = [
-  //   {
-  //     ...bookOtherWordsForHome,
-  //   },
-  //   {
-  //     ...bookTheMetropolis,
-  //   },
-  //   {
-  //     ...bookTheTinyDragon,
-  //   },
-  // ];
 
   const categoriesData = [
     {
@@ -387,7 +335,7 @@ const HomeScreen = ({ navigation }) => {
           {/* Book Cover */}
           <Image
             // source={ images.otherWordsForHome }
-            source={item.HinhAnh}
+            source={{uri: URL_IMAGES + item.HinhAnh}}
             resizeMode="cover"
             style={{
               width: 180,
@@ -517,7 +465,7 @@ const HomeScreen = ({ navigation }) => {
           >
             {/* Book Cover */}
             <Image
-              source={item.HinhAnh}
+              source={{uri: URL_IMAGES + item.HinhAnh}}
               resizeMode="cover"
               style={{ width: 100, height: 150, borderRadius: 10 }}
             />
@@ -541,7 +489,7 @@ const HomeScreen = ({ navigation }) => {
                   {item.TenSanPham}
                 </Text>
                 <Text style={{ ...FONTS.h3, color: COLORS.lightGray }}>
-                  {item.TacGia}
+                  {item.TacGia.length > 0 ? item.TacGia[0].TenTacGia : ""}
                 </Text>
               </View>
 
@@ -614,10 +562,18 @@ const HomeScreen = ({ navigation }) => {
             alignItems: "center",
             justifyContent: "center",
           }}
-          onPress={() =>
-            navigation.navigate("CartScreen", {
-              book: item,
-            })
+          onPress={
+            () => {
+              updateGioHang(item, dispatch);
+              Alert.alert("", "Thêm vào giỏ hàng thành công", [
+                {
+                  text: "OK",
+                },
+              ]);
+            }
+            // navigation.navigate("CartScreen", {
+            //   book: item,
+            // })
           }
         >
           <Text style={{ ...FONTS.h4, color: COLORS.white }}>
@@ -632,9 +588,9 @@ const HomeScreen = ({ navigation }) => {
     <View style={{ flex: 1, backgroundColor: COLORS.black }}>
       <StatusBar barStyle={"light-content"} />
       {/* Header Section */}
-      <View style={{ height: 200 }}>
+      <View style={{ height: "15%" }}>
         {renderHeader(getProfile)}
-        {renderButtonSection()}
+        {/* {renderButtonSection()} */}
       </View>
 
       {/* Body Section */}

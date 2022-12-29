@@ -1,7 +1,8 @@
 import axios from "axios";
+import { URL_REQUESTAXIOS } from "./url";
 
 const requestAxios = axios.create({
-  baseURL: "http://10.10.43.8:9000/v1",
+  baseURL: URL_REQUESTAXIOS,
 });
 
 export default requestAxios;

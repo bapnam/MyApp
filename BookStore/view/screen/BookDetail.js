@@ -9,6 +9,7 @@ import {
   Animated,
 } from "react-native";
 import { FONTS, COLORS, SIZES, icons } from "../../constants";
+import { URL_IMAGES } from "../utils/url";
 
 // const LineDivider = () => {
 //   return (
@@ -34,13 +35,14 @@ const BookDetail = ({ route, navigation }) => {
   useEffect(() => {
     let { book } = route.params;
     setBook(book);
+    console.log("detail: ", book);
   }, [book]);
 
   const renderBookInfoSection = () => {
     return (
       <View style={{ flex: 1 }}>
         <ImageBackground
-          source={book.HinhAnh}
+          source={{uri: URL_IMAGES + book.HinhAnh}}
           resizeMode="cover"
           style={{
             position: "absolute",
@@ -82,7 +84,7 @@ const BookDetail = ({ route, navigation }) => {
               style={{
                 width: 25,
                 height: 25,
-                tintColor: book.navTintColor,
+                tintColor: "#000",
               }}
             />
           </TouchableOpacity>
@@ -90,26 +92,12 @@ const BookDetail = ({ route, navigation }) => {
           <View
             style={{ flex: 1, alignItems: "center", justifyContent: "center" }}
           >
-            <Text style={{ ...FONTS.h2, color: book.navTintColor }}>
+            <Text style={{ ...FONTS.h2, color: "#000" }}>
               Book Detail
             </Text>
           </View>
 
-          {/* <TouchableOpacity
-            style={{ marginRigth: SIZES.base }}
-            onPress={() => console.log("Click More")}
-          >
-            <Image
-              source={icons.more_icon}
-              resizeMode="contain"
-              style={{
-                width: 30,
-                height: 30,
-                tintColor: book.navTintColor,
-                alignSelf: "flex-end",
-              }}
-            />
-          </TouchableOpacity> */}
+          
         </View>
 
         {/* Book Cover */}
@@ -117,7 +105,7 @@ const BookDetail = ({ route, navigation }) => {
           style={{ flex: 5, paddingTop: SIZES.padding2, alignItems: "center" }}
         >
           <Image
-            source={book.HinhAnh}
+            source={{ uri: URL_IMAGES + book.HinhAnh }}
             resizeMode="contain"
             style={{
               flex: 1,
@@ -132,14 +120,14 @@ const BookDetail = ({ route, navigation }) => {
           style={{ flex: 1.8, alignItems: "center", justifyContent: "center" }}
         >
           <Text
-            style={{ ...FONTS.h2, color: book.navTintColor }}
+            style={{ ...FONTS.h2, color: "#000" }}
             numberOfLines={1}
             ellipsizeMode="tail"
           >
             {book.TenSanPham}
           </Text>
-          <Text style={{ ...FONTS.body3, color: book.navTintColor }}>
-            {book.TacGia}
+          <Text style={{ ...FONTS.body3, color: "#000" }}>
+            {book.TacGia[0].TenTacGia}
           </Text>
         </View>
       </View>
@@ -236,9 +224,7 @@ const BookDetail = ({ route, navigation }) => {
             alignItems: "center",
             justifyContent: "center",
           }}
-          onPress={() =>
-            navigation.navigate("CartScreen")
-          }
+          onPress={() => navigation.navigate("BookStore")}
         >
           <Text style={{ ...FONTS.h3, color: COLORS.white }}>
             Start Reading

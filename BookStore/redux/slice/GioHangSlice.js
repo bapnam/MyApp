@@ -22,7 +22,7 @@ export const gioHangSlice = createSlice({
       state.SanPham = action.payload.SanPham;
     },
     updateGioHangs: (state, action) => {
-      state.KhachHangID = action.payload.KhachHangID;
+      state.KhachHangID = state.KhachHangID;
       state.SanPham = [...state.SanPham, action.payload.SanPham];
     },
   },

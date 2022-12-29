@@ -3,7 +3,6 @@ import React, { useEffect, useState } from "react";
 import {
   Alert,
   Image,
-  PermissionsAndroid,
   StyleSheet,
   Text,
   TextInput,
@@ -14,13 +13,10 @@ import { useDispatch, useSelector } from "react-redux";
 import { COLORS, FONTS, icons, images, SIZES } from "../../../constants";
 import { createGioHang } from "../../../redux/apiRequest";
 import { updateUser } from "../../../redux/slice/LoginSlice";
-// import ImagePicker from 'react-native-image-crop-picker';
-import * as ImagePicker from "expo-image-picker";
-import { launchCamera, launchImageLibrary } from "react-native-image-picker";
 
 import requestAxios from "../../utils/requestAxios";
 
-const LoginScreen = ({ navigation }) => {
+const RegisterScreen = ({ navigation }) => {
   const [email, setEmail] = useState();
   const [password, setPassword] = useState();
   const [user, setUser] = useState({});
@@ -34,53 +30,6 @@ const LoginScreen = ({ navigation }) => {
   var d = useSelector((s) => s.gioHang);
 
   const dispatch = useDispatch();
-
-  const [image, setImage] = useState(null);
-  const cameraImages = async () => {
-    // let result = await ImagePicker.launchImageLibraryAsync({
-    //   mediaTypes: ImagePicker.MediaTypeOptions.All,
-    //   allowsEditing: false,
-    //   aspect: [4, 3],
-    //   quality: 1,
-
-    // });
-
-    // console.log(result);
-    // if (!result.canceled) {
-    //   setImage(result.uri);
-    // }
-
-    const result = await launchImageLibrary({
-      mediaType: "photo",
-    });
-  };
-
-  ////////////////////////////////
-  const code = () => {
-    const deleteHoaDon = async () => {
-      axios
-        .delete("http://10.10.35.90:9000/v1/hoadon/delete/" + "63845a8494b6c21069d1c16c")
-        .then((res) => {
-          console.log("deletehahah");
-        })
-        .catch((er) => {
-          console.log(er);
-        });
-    };
-    deleteHoaDon();
-
-    const getbyid = async () => {
-      axios
-        .get("http://10.10.35.90:9000/v1/hoadon/getbyid/" + "63845e3594b6c21069d1c173")
-        .then((res) => {
-          console.log(res.data);
-        })
-        .catch((er) => {
-          console.log(er);
-        });
-    };
-    getbyid()
-  };
 
   useEffect(() => {
     const u = {
@@ -162,6 +111,7 @@ const LoginScreen = ({ navigation }) => {
     } else {
       post();
     }
+    
 
     // goHome();
   };
@@ -176,14 +126,12 @@ const LoginScreen = ({ navigation }) => {
       }}
     >
       {/* image book store */}
-      {/* <Image style={{ marginBottom: 30, width: 200, height: 200  }} source={{uri: image.source}} /> */}
-      {image && (
-        <Image source={{ uri: image }} style={{ width: 200, height: 200 }} />
-      )}
+      <Image style={{ marginBottom: 30 }} source={icons.bookstore} />
+
       {/* input user name */}
       <View
         style={{
-          backgroundColor: COLORS.white,
+          backgroundColor: COLORS.lightGray,
           borderRadius: 30,
           width: "80%",
           height: 50,
@@ -193,7 +141,7 @@ const LoginScreen = ({ navigation }) => {
       >
         <TextInput
           style={{
-            ...FONTS.h4,
+            ...FONTS.h3,
             flex: 1,
             padding: 10,
             marginLeft: 20,
@@ -214,7 +162,7 @@ const LoginScreen = ({ navigation }) => {
       {/* input password */}
       <View
         style={{
-          backgroundColor: COLORS.white,
+          backgroundColor: COLORS.lightGray,
           borderRadius: 30,
           width: "80%",
           height: 45,
@@ -224,7 +172,7 @@ const LoginScreen = ({ navigation }) => {
       >
         <TextInput
           style={{
-            ...FONTS.h4,
+            ...FONTS.h3,
             flex: 1,
             padding: 10,
             marginLeft: 20,
@@ -238,6 +186,7 @@ const LoginScreen = ({ navigation }) => {
           // value= "12345678"
           onChangeText={(password) => {
             user.MatKhau = password;
+            // console.log("MAMAM: ", user);
           }}
         />
       </View>
@@ -258,30 +207,12 @@ const LoginScreen = ({ navigation }) => {
           marginTop: 40,
           backgroundColor: COLORS.primary,
         }}
-        onPress={code}
+        onPress={handleLogin}
       >
-        <Text>Đăng Nhập</Text>
+        <Text style={{}}>LOGIN</Text>
       </TouchableOpacity>
-
-      {/* button register */}
-      <View
-        style={{
-          width: "100%",
-          height: 50,
-          alignItems: "center",
-          justifyContent: "center",
-          marginTop: 40,
-          flexDirection: "row",
-        }}
-        // onPress={}
-      >
-        <Text>Bạn chưa có tài khoản?</Text>
-        <TouchableOpacity style={{}}>
-          <Text style={{ color: COLORS.primary, ...FONTS.h4 }}> Tạo mới</Text>
-        </TouchableOpacity>
-      </View>
     </View>
   );
 };
 
-export default LoginScreen;
+export default RegisterScreen;

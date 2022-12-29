@@ -20,6 +20,7 @@ npm install react-native-screens
 npm install react-native-safe-area-context
 npm install @react-navigation/stack                         * hướng dẫn kêu cài thêm số 1
 npm install @react-navigation/bottom-tabs
+
 npm install --save @react-native-masked-view/masked-view    * có phiên bản đã k còn hổ trợ ( + đã cài)
 npm install react-native-reanimated                         * nên cài cuối cùng - chú ý k cài gấp khi nào cần thì cài
 
@@ -30,6 +31,7 @@ npm install --save redux
 npm install react-redux
 npm install @reduxjs/toolkit
 
+npm install react-native-image-picker --save
 
 + Một số phiên bản không phù hợp: câu lệnh mẫu để thay đổi.
 {
@@ -37,6 +39,12 @@ npm install @reduxjs/toolkit
     react-native-reanimated@~2.9.1 react-native-safe-area-context@4.3.1 react-native-screens@~3.15.0
 }
 
+
+npm install formik --save
+npm install -S yup
+npm i react-native-paper
+npm i native-base
+npm install react react-dom
 
 --------
 ********

@@ -1,23 +1,9 @@
 import { useSelector } from "react-redux";
 import requestAxios from "../view/utils/requestAxios";
-import { updateGioHangs } from "./slice/GioHangSlice";
+import { createGioHangs, updateGioHangs } from "./slice/GioHangSlice";
 
-const updateGioHang = async (gioHang, dispatch) => {
+const createGioHang = async (gioHang, dispatch) => {
   try {
-    const gh = {
-      KhachHangID: "kakakak",
-      SanPham: [
-        {
-          SanPham_ID: "kakakak",
-          TenSanPham: "kakakak",
-          SoLuongTong: 1,
-          HinhAnh: "kakakak",
-          Gia: 1,
-          SoLuongMua: 1,
-        },
-      ],
-    };
-
     const gioTruocXuLy = gioHang.map((dataArr) => {
       return {
         KhachHangID: dataArr.KhachHangID._id,
@@ -39,12 +25,33 @@ const updateGioHang = async (gioHang, dispatch) => {
       SanPham: gioTruocXuLy[0].SanPham.length > 0 ? gioTruocXuLy[0].SanPham : 0,
     };
 
-    console.log("LOG1: ", gioTruocXuLy);
-    console.log("LOG2: ", data);
-    dispatch(updateGioHangs(data));
+    // console.log("LOG1: ", gioTruocXuLy);
+    console.log("LOG2 apiRequest: ", data);
+    dispatch(createGioHangs(data));
   } catch (error) {
-    console.log("JAJAJ: ", error);
+    console.log("ERROR createGioHang apiRequest: ", error);
   }
 };
 
-export { updateGioHang };
+const updateGioHang = (item, dispatch) => {
+  try {
+    const gioTruocXuLy = {
+      KhachHangID: "idKhachHang",
+      SanPham: {
+        SanPham_ID: item._id,
+        TenSanPham: item.TenSanPham,
+        HinhAnh: item.HinhAnh,
+        Gia: item.Gia,
+        SoLuongTong: item.SoLuong,
+        SoLuongMua: 1,
+      },
+    };
+
+    console.log(gioTruocXuLy);
+    dispatch(updateGioHangs(gioTruocXuLy))
+  } catch (error) {
+    console.log("ERROR updateGioHang apiRequest: ", error);
+  }
+};
+
+export { createGioHang, updateGioHang };

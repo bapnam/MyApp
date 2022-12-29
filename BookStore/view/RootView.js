@@ -9,6 +9,7 @@ import BookDetail from "./screen/BookDetail";
 import CartScreen from "./screen/CartScreen";
 import LoginScreen from "./screen/login_logout/login";
 import { useSelector } from "react-redux";
+import RegisterScreen from "./screen/login_logout/register";
 
 const theme = {
   ...DefaultTheme,
@@ -58,6 +59,7 @@ const RootView = () => {
         
         {/* Login */}
         <Stack.Screen name="Login" component={LoginScreen} />
+        <Stack.Screen name="Register" component={RegisterScreen} />
       </Stack.Navigator>
     );
   }

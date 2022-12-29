@@ -17,6 +17,10 @@ export const dollar = require("../assets/icons/dollar.png");
 export const cart_icon = require("../assets/icons/shopping-cart.png");
 export const dong_icon = require("../assets/icons/dong.png");
 export const bookstore = require("../assets/icons/bookstore.png");
+export const add_icon = require("../assets/icons/add.png");
+export const minus_icon = require("../assets/icons/minus.png");
+
+
 
 export default {
   card_icon,
@@ -38,4 +42,6 @@ export default {
   cart_icon,
   dong_icon,
   bookstore,
+  add_icon,
+  minus_icon,
 };

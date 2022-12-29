@@ -10,6 +10,7 @@ import {
 } from "react-native";
 import { useSelector } from "react-redux";
 import { FONTS, COLORS, SIZES, icons } from "../../constants";
+import { URL_IMAGES, URL_REQUESTAXIOS } from "../utils/url";
 
 // const gioHang = useSelector((state) => {
 //   state.gioHang.khachHangID;
@@ -80,7 +81,7 @@ const CartScreen = ({ route, navigation }) => {
     );
   };
 
-  const renderBookDescription = () => {
+  const renderCart = () => {
     return gioHang.SanPham.length > 0 ? (
       <View
         style={{
@@ -91,16 +92,18 @@ const CartScreen = ({ route, navigation }) => {
       >
         <ScrollView>
           {gioHang.SanPham.map((items) => (
-            <View style={{ marginVertical: SIZES.base }}>
-              <TouchableOpacity style={{ flex: 1, flexDirection: "row" }}>
-                {/* Book Cover */}
-                <Image
-                  source={{
-                    uri: "http://10.10.43.8:9000/publics/images/HinhAnh-1668677136887.jpg",
-                  }}
-                  resizeMode="cover"
-                  style={{ width: "20%", height: 150, borderRadius: 10 }}
-                />
+            <View style={{ marginVertical: SIZES.base }} key={items.TenSanPham}>
+              <View style={{ flex: 1, flexDirection: "row" }}>
+                <TouchableOpacity style={{ width: "25%" }}>
+                  {/* Book Cover */}
+                  <Image
+                    source={{
+                      uri: URL_IMAGES + items.HinhAnh,
+                    }}
+                    resizeMode="cover"
+                    style={{ width: "100%", height: 150, borderRadius: 10 }}
+                  />
+                </TouchableOpacity>
 
                 <View
                   style={{ flex: 1, marginLeft: SIZES.radius, width: "10%" }}
@@ -144,10 +147,62 @@ const CartScreen = ({ route, navigation }) => {
                         color: COLORS.lightGray,
                         paddingHorizontal: SIZES.radius,
                       }}
-                    >{items.Gia}</Text>
+                    >
+                      {items.Gia}
+                    </Text>
+                  </View>
+
+                  {/* Add sp */}
+                  <View
+                    style={{
+                      flexDirection: "row",
+                      marginTop: SIZES.radius,
+                      // marginLeft: SIZES.base,
+                      width: "100%",
+                      alignItems: "center",
+                      justifyContent: "center",
+                    }}
+                  >
+                    <TouchableOpacity>
+                      <Image
+                        source={icons.minus_icon}
+                        resizeMode="contain"
+                        style={{
+                          width: 25,
+                          height: 25,
+                          tintColor: COLORS.lightGray3,
+                          margin: SIZES.radius,
+                        }}
+                      />
+                    </TouchableOpacity>
+
+                    <Text
+                      style={{
+                        margin: SIZES.radius,
+                        width: "20%",
+                        textAlign: "center",
+                        ...FONTS.body2,
+                        color: COLORS.lightGray3,
+                        paddingHorizontal: SIZES.radius,
+                      }}
+                    >
+                      1
+                    </Text>
+                    <TouchableOpacity>
+                      <Image
+                        source={icons.add_icon}
+                        resizeMode="contain"
+                        style={{
+                          width: 25,
+                          height: 25,
+                          tintColor: COLORS.lightGray3,
+                          margin: SIZES.radius,
+                        }}
+                      />
+                    </TouchableOpacity>
                   </View>
                 </View>
-              </TouchableOpacity>
+              </View>
             </View>
           ))}
         </ScrollView>
@@ -169,8 +224,8 @@ const CartScreen = ({ route, navigation }) => {
           elevation: 3,
         }}
       >
-        <Text style={{ ...FONTS.h3, color: COLORS.white, height: "30%" }}>
-          Start Reading
+        <Text style={{ ...FONTS.h4, color: COLORS.white, height: "30%" }}>
+          Phương thức thanh toán
         </Text>
         <View
           style={{
@@ -205,11 +260,9 @@ const CartScreen = ({ route, navigation }) => {
               justifyContent: "center",
               width: "40%",
             }}
-            onPress={() => navigation.navigate()}
+            // onPress={() => navigation.navigate()}
           >
-            <Text style={{ ...FONTS.h3, color: COLORS.white }}>
-              Start Reading
-            </Text>
+            <Text style={{ ...FONTS.h3, color: COLORS.white }}>Đặt Hàng</Text>
           </TouchableOpacity>
         </View>
       </View>
@@ -223,7 +276,7 @@ const CartScreen = ({ route, navigation }) => {
       <View style={{ height: "7%" }}>{renderHeaderCart()}</View>
 
       {/* Description */}
-      <View style={{ height: "78%" }}>{renderBookDescription()}</View>
+      <View style={{ height: "78%" }}>{renderCart()}</View>
 
       {/* Buttons */}
       <View style={{ height: "15%", flexDirection: "column" }}>
